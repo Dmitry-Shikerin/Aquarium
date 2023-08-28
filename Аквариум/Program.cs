@@ -54,20 +54,17 @@ namespace Аквариум
             Console.WriteLine($"{Name}, возраст {Age}, жива ли {IsAlive}");
         }
 
-        public int AddYearLife()
+        public void AddYearLife()
         {
             if (Age < AgeDeath)
             {
                 Age++;
-                return Age;
             }
             else if (Age == AgeDeath)
             {
                 IsAlive = false;
                 Age = AgeDeath;
             }
-
-            return Age;
         }
     }
 
@@ -95,53 +92,11 @@ namespace Аквариум
 
     class Aquarium
     {
-        private List<Fish> _listFishes = new List<Fish>();
+        private List<Fish> _fishes = new List<Fish>();
 
         private FishFactory _fishFactory = new FishFactory();
 
         private int _aquariumCapacity = 7;
-
-        private void ShowInfo()
-        {
-            for (int i = 0; i < _listFishes.Count; i++)
-            {
-                _listFishes[i].ShowInfo();
-            }
-        }
-
-        private void AddRandomFishes()
-        {
-            for (int i = 0; i < _aquariumCapacity; i++)
-            {
-                if (_listFishes.Count != _aquariumCapacity)
-                {
-                    _listFishes.Add(_fishFactory.CreateRandom());
-                    _listFishes[i].ShowInfo();
-                }
-            }
-        }
-
-        private void AddYearLife()
-        {
-            for (int i = 0; i < _listFishes.Count; i++)
-            {
-                _listFishes[i].AddYearLife();
-            }
-        }
-
-        private void RemoveDeadFishes()
-        {
-            for (int i = 0; i < _listFishes.Count; i++)
-            {
-                if (_listFishes[i].IsAlive == false)
-                {
-                    Console.Write($"Рыбка ");
-                    _listFishes[i].ShowInfo();
-                    Console.WriteLine("Умерла и удалена из Аквариума");
-                    _listFishes.RemoveAt(i);
-                }
-            }
-        }
 
         public void Work()
         {
@@ -149,6 +104,48 @@ namespace Аквариум
             ShowInfo();
             AddYearLife();
             RemoveDeadFishes();
+        }
+
+        private void ShowInfo()
+        {
+            for (int i = 0; i < _fishes.Count; i++)
+            {
+                _fishes[i].ShowInfo();
+            }
+        }
+
+        private void AddRandomFishes()
+        {
+            for (int i = 0; i < _aquariumCapacity; i++)
+            {
+                if (_fishes.Count != _aquariumCapacity)
+                {
+                    _fishes.Add(_fishFactory.CreateRandom());
+                    _fishes[i].ShowInfo();
+                }
+            }
+        }
+
+        private void AddYearLife()
+        {
+            for (int i = 0; i < _fishes.Count; i++)
+            {
+                _fishes[i].AddYearLife();
+            }
+        }
+
+        private void RemoveDeadFishes()
+        {
+            for (int i = _fishes.Count; i > 0; i--)
+            {
+                if (_fishes[i].IsAlive == false)
+                {
+                    Console.Write($"Рыбка ");
+                    _fishes[i].ShowInfo();
+                    Console.WriteLine("Умерла и удалена из Аквариума");
+                    _fishes.RemoveAt(i);
+                }
+            }
         }
     }
     public static class Utils
