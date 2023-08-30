@@ -96,7 +96,7 @@ namespace Аквариум
 
         private FishFactory _fishFactory = new FishFactory();
 
-        private int _aquariumCapacity = 7;
+        private int _сapacity = 7;
 
         public void Work()
         {
@@ -116,9 +116,9 @@ namespace Аквариум
 
         private void AddRandomFishes()
         {
-            for (int i = 0; i < _aquariumCapacity; i++)
+            for (int i = 0; i < _сapacity; i++)
             {
-                if (_fishes.Count != _aquariumCapacity)
+                if (_fishes.Count != _сapacity)
                 {
                     _fishes.Add(_fishFactory.CreateRandom());
                     _fishes[i].ShowInfo();
@@ -136,7 +136,7 @@ namespace Аквариум
 
         private void RemoveDeadFishes()
         {
-            for (int i = _fishes.Count; i > 0; i--)
+            for (int i = _fishes.Count - 1; i > 0; i--)
             {
                 if (_fishes[i].IsAlive == false)
                 {
